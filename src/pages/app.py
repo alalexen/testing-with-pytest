@@ -1,3 +1,5 @@
+from src.pages.CataloguePage import CataloguePage
+from src.pages.base_page import BasePage
 from src.pages.LoginPage import LoginPage
 from src.pages.HomePage import HomePage
 from src.pages.ProductDetailsPage import ProductDetailsPage
@@ -21,3 +23,9 @@ class Application:
 
     def shopping_cart_page(self):
         return ShoppingCartPage(self.browser)
+
+    def base_page(self):
+        return BasePage(self.browser)
+
+    def catalogue_page(self):
+        return CataloguePage(self.browser)

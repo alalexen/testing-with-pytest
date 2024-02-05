@@ -1,18 +1,16 @@
-from src.pages.page import Page
-from selene import have
-from selene.api import by
+from src.pages.base_page import BasePage
 
 
-class LoginPage(Page):
+class LoginPage(BasePage):
 
     # CSS locators
-    LOGIN_BUTTON_HEADER_CSS = "#login"
-    USERNAME_FIELD_CSS = "#username-modal"
-    PASSWORD_FIELD_CSS = "#password-modal"
-    LOGGED_IN_AS_CSS = "#howdy > a"
+    LOGIN_BUTTON_HEADER = ("#login", "Login button from header", "css")
+    USERNAME_FIELD = ("#username-modal", "Username field", "css")
+    PASSWORD_FIELD = ("#password-modal", "Password field", "css")
+    LOGGED_IN_AS = ("#howdy > a", "Logged as href", "css")
 
     # XPath locators
-    CONFIRM_LOGIN_BUTTON_XPATH = "//button[@class='btn btn-primary']"
+    CONFIRM_LOGIN_BUTTON_XPATH = ("//button[@class='btn btn-primary']", "Confirm login button", "xpath")
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -21,11 +19,11 @@ class LoginPage(Page):
         self.browser.open("")
 
     def login(self, username, password):
-        self.browser.element(self.LOGIN_BUTTON_HEADER_CSS).click()
-        self.browser.element(self.USERNAME_FIELD_CSS).set_value(username)
-        self.browser.element(self.PASSWORD_FIELD_CSS).set_value(password)
-        self.browser.element(by.xpath(self.CONFIRM_LOGIN_BUTTON_XPATH)).click()
-        self.browser.element(self.LOGGED_IN_AS_CSS).should(have.exact_text("Logged in as"))
+        self.click_web_element(self.LOGIN_BUTTON_HEADER)
+        self.set_element_text(self.USERNAME_FIELD, username)
+        self.set_element_text(self.PASSWORD_FIELD, password)
+        self.click_web_element(self.CONFIRM_LOGIN_BUTTON_XPATH)
+        self.verify_element_text(self.LOGGED_IN_AS, "Logged in as")
 
     def login_as_admin(self, app):
         self.open()

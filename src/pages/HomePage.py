@@ -1,34 +1,23 @@
-from selene import be, have
+from time import sleep
 
-from src.pages.page import Page
-from selene.api import by
+from src.pages.base_page import BasePage
 
 
-class HomePage(Page):
+class HomePage(BasePage):
 
     # CSS locators
-    ADD_TO_CART_BUTTON_CSS = "#buttonCart"
-    X_ITEMS_IN_CART_BUTTON_CSS = "#numItemsInCart"
+    ADD_TO_CART_BUTTON = ("#buttonCart", "Add to cart button", "css")
 
     # XPath locators
-    HOLY_SOCKS_XPATH = "//a[contains(text(), 'Holy')]"
+    HOLY_SOCKS = ("//a[contains(text(), 'Holy')]", "Hoollly socks!", "xpath")
 
     def __init__(self, browser):
         super().__init__(browser)
 
     def select_holy_socks(self):
-        self.browser.element(by.xpath(self.HOLY_SOCKS_XPATH)).click()
-        self.browser.element(self.ADD_TO_CART_BUTTON_CSS).should(be.visible)
+        self.click_web_element(self.HOLY_SOCKS)
+        self.wait_until_element_visibility(self.ADD_TO_CART_BUTTON)
 
     def add_to_card(self):
-        self.browser.element(self.ADD_TO_CART_BUTTON_CSS).click()
-
-    def verify_items_in_cart_button(self, items_amount: int):
-        self.browser.element(self.X_ITEMS_IN_CART_BUTTON_CSS).should(
-            have.exact_text(
-                "{} item(s) in cart".format(str(items_amount))
-            )
-        )
-
-    def navigate_to_shopping_cart(self):
-        self.browser.element(self.X_ITEMS_IN_CART_BUTTON_CSS).click()
+        self.click_web_element(self.ADD_TO_CART_BUTTON)
+        sleep(1)
