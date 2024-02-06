@@ -1,5 +1,4 @@
 import allure
-
 from src.pages.base_page import BasePage
 
 
@@ -12,13 +11,13 @@ class LoginPage(BasePage):
     LOGGED_IN_AS = ("#howdy > a", "Logged as href", "css")
 
     # XPath locators
-    CONFIRM_LOGIN_BUTTON_XPATH = ("//button[@class='btn btn-primary']", "Confirm login button", "xpath")
+    CONFIRM_LOGIN_BUTTON = ("//button[@class='btn btn-primary']", "Confirm login button", "xpath")
     INVALID_CREDS_ALERT = ("//div[@class='alert alert-danger']", "Invalid credentials alert", "xpath")
 
     def __init__(self, browser):
         super().__init__(browser)
 
-    @allure.step
+    @allure.step("open browser and navigate to url")
     def open(self):
         self.browser.open("")
 
@@ -27,7 +26,7 @@ class LoginPage(BasePage):
         self.click_web_element(self.LOGIN_BUTTON_HEADER)
         self.set_element_text(self.USERNAME_FIELD, username)
         self.set_element_text(self.PASSWORD_FIELD, password)
-        self.click_web_element(self.CONFIRM_LOGIN_BUTTON_XPATH)
+        self.click_web_element(self.CONFIRM_LOGIN_BUTTON)
 
     def verify_successful_login(self):
         self.verify_element_text(self.LOGGED_IN_AS, "Logged in as")
