@@ -7,7 +7,13 @@ import pytest
 from selene import Browser, Config
 from selenium import webdriver
 
-from src.pages.app import Application
+import allure
+
+from src.pages.CataloguePage import CataloguePage
+from src.pages.LoginPage import LoginPage
+from src.pages.HomePage import HomePage
+from src.pages.ProductDetailsPage import ProductDetailsPage
+from src.pages.ShoppingCartPage import ShoppingCartPage
 
 
 @pytest.fixture
@@ -40,8 +46,13 @@ def get_config(request):
 
 
 @pytest.fixture(scope="session")
-def browser(request):
+def config(request):
     config = get_config(request)
+    return config
+
+
+@pytest.fixture(scope="session")
+def browser(config):
     browser = Browser(
         Config(
             driver=webdriver.Chrome(),
@@ -53,9 +64,35 @@ def browser(request):
     yield browser
     browser.close()
 
+# ------------------ Pages ---------------------
 
+
+@allure.step
 @pytest.fixture(scope="session")
-def app(browser, request):
-    config = get_config(request)
-    return Application(browser, config)
+def login_page(browser):
+    return LoginPage(browser)
+
+
+@allure.step
+@pytest.fixture(scope="session")
+def home_page(browser):
+    return HomePage(browser)
+
+
+@allure.step
+@pytest.fixture(scope="session")
+def product_details_page(browser):
+    return ProductDetailsPage(browser)
+
+
+@allure.step
+@pytest.fixture(scope="session")
+def shopping_cart_page(browser):
+    return ShoppingCartPage(browser)
+
+
+@allure.step
+@pytest.fixture(scope="session")
+def catalogue_page(browser):
+    return CataloguePage(browser)
 

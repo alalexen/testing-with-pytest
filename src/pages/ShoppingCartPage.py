@@ -51,5 +51,3 @@ class ShoppingCartPage(BasePage):
 
     def click_continue_shopping_button(self):
         self.click_web_element(self.CONTINUE_SHOPPING_BUTTON)
-
-
