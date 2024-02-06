@@ -11,6 +11,7 @@ class LoginPage(BasePage):
 
     # XPath locators
     CONFIRM_LOGIN_BUTTON_XPATH = ("//button[@class='btn btn-primary']", "Confirm login button", "xpath")
+    INVALID_CREDS_ALERT = ("//div[@class='alert alert-danger']", "Invalid credentials alert", "xpath")
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -23,6 +24,8 @@ class LoginPage(BasePage):
         self.set_element_text(self.USERNAME_FIELD, username)
         self.set_element_text(self.PASSWORD_FIELD, password)
         self.click_web_element(self.CONFIRM_LOGIN_BUTTON_XPATH)
+
+    def verify_successful_login(self):
         self.verify_element_text(self.LOGGED_IN_AS, "Logged in as")
 
     def login_as_admin(self, app):
@@ -32,3 +35,5 @@ class LoginPage(BasePage):
             app.config["password"]
         )
 
+    def verify_invalid_credentials_alert(self):
+        self.verify_element_text(self.INVALID_CREDS_ALERT, "Invalid login credentials.")

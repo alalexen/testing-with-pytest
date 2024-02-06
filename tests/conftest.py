@@ -1,12 +1,18 @@
 import configparser
 import os.path
 import sys
+from faker import Faker
 
 import pytest
 from selene import Browser, Config
 from selenium import webdriver
 
 from src.pages.app import Application
+
+
+@pytest.fixture
+def faker():
+    return Faker()
 
 
 def pytest_addoption(parser):
