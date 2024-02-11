@@ -4,15 +4,12 @@ from src.pages.base_page import BasePage
 
 class LoginPage(BasePage):
 
-    # CSS locators
-    LOGIN_BUTTON_HEADER = ("#login", "Login button from header", "css")
-    USERNAME_FIELD = ("#username-modal", "Username field", "css")
-    PASSWORD_FIELD = ("#password-modal", "Password field", "css")
-    LOGGED_IN_AS = ("#howdy > a", "Logged as href", "css")
-
-    # XPath locators
-    CONFIRM_LOGIN_BUTTON = ("//button[@class='btn btn-primary']", "Confirm login button", "xpath")
-    INVALID_CREDS_ALERT = ("//div[@class='alert alert-danger']", "Invalid credentials alert", "xpath")
+    LOGIN_BUTTON_HEADER = "#login"
+    USERNAME_FIELD = "#username-modal"
+    PASSWORD_FIELD = "#password-modal"
+    LOGGED_IN_AS = "#howdy > a"
+    CONFIRM_LOGIN_BUTTON = "//button[@class='btn btn-primary']"
+    INVALID_CREDS_ALERT = "//div[@class='alert alert-danger']"
 
     def __init__(self, browser):
         super().__init__(browser)

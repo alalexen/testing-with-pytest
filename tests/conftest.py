@@ -1,21 +1,16 @@
-import configparser
-import os.path
 import sys
-
-from allure_commons.types import AttachmentType
-from faker import Faker
-
-import pytest
-from selene import Browser, Config
-from selenium import webdriver
-
 import allure
-
-from src.pages.CataloguePage import CataloguePage
-from src.pages.LoginPage import LoginPage
+import os.path
+import pytest
+import configparser
+from faker import Faker
+from selenium import webdriver
+from selene import Browser, Config
 from src.pages.HomePage import HomePage
-from src.pages.ProductDetailsPage import ProductDetailsPage
+from src.pages.LoginPage import LoginPage
+from src.pages.CataloguePage import CataloguePage
 from src.pages.ShoppingCartPage import ShoppingCartPage
+from src.pages.ProductDetailsPage import ProductDetailsPage
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
