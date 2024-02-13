@@ -1,8 +1,6 @@
 import os
-
 import requests
 import json
-
 from src.api.response import AssertableResponse
 
 
@@ -11,7 +9,8 @@ class ApiServices:
         self.header = {'content-type': 'application/json'}
         self._base_url = os.environ['BASE_URL']
 
-    def _post(self, body, headers):
+    def _post(self, body):
+        token = None
         return requests.post(f"{self._base_url}/register", data=json.dumps(body),
                              headers=self.header)
 
