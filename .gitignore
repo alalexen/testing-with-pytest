@@ -4,3 +4,5 @@
 *.pyc
 .DS_Store
 /allure/
+/tests_ui/reports/
+/tests_api/reports/

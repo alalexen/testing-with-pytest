@@ -2,8 +2,8 @@ import pytest
 
 
 @pytest.fixture(scope='module', autouse=True)
-def setup_module(login_page, config):
-    login_page.login_as_admin(config)
+def setup_module(login_page):
+    login_page.login_as_admin()
     yield
 
 

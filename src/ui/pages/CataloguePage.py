@@ -1,5 +1,4 @@
-from selene.api import s, by
-from src.pages.base_page import BasePage
+from src.ui.pages.base_page import BasePage
 
 
 class CataloguePage(BasePage):
@@ -9,6 +8,4 @@ class CataloguePage(BasePage):
     BREADCRUMB = "//ul[@class='breadcrumb']"
 
     def verify_catalogue_breadcrumb(self):
-        # breadcrumb_text = self.wait_until_element_visibility(self.BREADCRUMB).text
-        # assert breadcrumb_text == "Home Catalogue"
         self.verify_element_text(self.BREADCRUMB, "Home Catalogue")

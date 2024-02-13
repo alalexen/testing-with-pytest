@@ -1,16 +1,27 @@
-import sys
+import os
+
 import allure
-import os.path
 import pytest
-import configparser
-from faker import Faker
 from selenium import webdriver
 from selene import Browser, Config
-from src.pages.HomePage import HomePage
-from src.pages.LoginPage import LoginPage
-from src.pages.CataloguePage import CataloguePage
-from src.pages.ShoppingCartPage import ShoppingCartPage
-from src.pages.ProductDetailsPage import ProductDetailsPage
+from src.ui.pages.HomePage import HomePage
+from src.ui.pages.LoginPage import LoginPage
+from src.ui.pages.CataloguePage import CataloguePage
+from src.ui.pages.ShoppingCartPage import ShoppingCartPage
+from src.ui.pages.ProductDetailsPage import ProductDetailsPage
+from common.conftest import pytest_addoption, faker
+
+
+def ui_faker():
+    return faker
+
+
+def ui_pytest_addoption(parser):
+    pytest_addoption(parser)
+
+# read project-config.ini file
+# def ui_config(request):
+#     return config(request)
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
@@ -30,47 +41,12 @@ def log_on_failure(request, browser):
                       attachment_type=allure.attachment_type.PNG)
 
 
-@pytest.fixture
-def faker():
-    return Faker()
-
-
-def pytest_addoption(parser):
-    parser.addoption(
-        "--env", action="store", default="local", help="env variable name"
-    )
-
-
-def read_ini():
-    config_file_name = os.environ.get("config-file", "project-config.ini")
-    root_path = os.path.join(sys.path[0], config_file_name)
-    parser = configparser.ConfigParser()
-    parser.read(root_path)
-    return parser
-
-
-# pytest tests/test_login.py --env=local
-
-def get_config(request):
-    env_name = request.config.getoption('--env')
-    try:
-        return read_ini()[env_name]
-    except KeyError:
-        raise Exception(f"Wrong configuration [{env_name}]")
-
-
 @pytest.fixture(scope="session")
-def config(request):
-    config = get_config(request)
-    return config
-
-
-@pytest.fixture(scope="session")
-def browser(config):
+def browser():
     browser = Browser(
         Config(
             driver=webdriver.Chrome(),
-            base_url=config["base_url"],
+            base_url=os.environ['BASE_URL'],
             timeout=4
 
         )
@@ -78,8 +54,8 @@ def browser(config):
     yield browser
     browser.close()
 
-# ------------------ Pages ---------------------
 
+# Pages
 
 @allure.step
 @pytest.fixture(scope="session")

@@ -1,5 +1,5 @@
 
-from src.pages.base_page import BasePage
+from src.ui.pages.base_page import BasePage
 from selene.support.conditions import be
 from selene import by
 

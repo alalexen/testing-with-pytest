@@ -1,12 +1,11 @@
 from time import sleep
-from src.pages.base_page import BasePage
+from src.ui.pages.base_page import BasePage
 from selene.support.conditions import be
 
 
 class HomePage(BasePage):
 
     ADD_TO_CART_BUTTON = "#buttonCart"
-
     HOLY_SOCKS = "//a[contains(text(), 'Holy')]"
 
     def __init__(self, browser):

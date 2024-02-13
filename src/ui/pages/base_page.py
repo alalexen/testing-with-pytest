@@ -1,5 +1,5 @@
 from selene import have
-from src.pages.page import Page
+from src.ui.pages.page import Page
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -28,4 +28,3 @@ class BasePage(Page):
 
     def verify_element_value(self, element_locator, expected_value):
         self.browser.element(element_locator).should(have.value(expected_value))
-

@@ -1,4 +1,4 @@
-from src.pages.page import Page
+from src.ui.pages.page import Page
 
 
 class ProductDetailsPage(Page):
